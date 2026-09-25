@@ -8,7 +8,7 @@ const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 app.use(cors());
-app.use(express.json({ limit: "2mb" }));
+app.use(express.json({ limit: "4mb" }));
 
 app.get("/", (req, res) => {
   res.json({
@@ -25,57 +25,123 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+const GOOGLE_FIELD_MASK = [
+  "places.id",
+  "places.displayName",
+  "places.formattedAddress",
+  "places.shortFormattedAddress",
+  "places.location",
+  "places.nationalPhoneNumber",
+  "places.internationalPhoneNumber",
+  "places.websiteUri",
+  "places.googleMapsUri",
+  "places.rating",
+  "places.userRatingCount",
+  "places.regularOpeningHours",
+  "places.types",
+  "places.primaryType",
+  "places.primaryTypeDisplayName",
+  "nextPageToken"
+].join(",");
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function googlePlacesSearch(textQuery) {
   if (!GOOGLE_MAPS_API_KEY) {
     throw new Error("GOOGLE_MAPS_API_KEY is not configured");
   }
 
-  const response = await fetch(
-    "https://places.googleapis.com/v1/places:searchText",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Goog-Api-Key": GOOGLE_MAPS_API_KEY,
-        "X-Goog-FieldMask": [
-          "places.id",
-          "places.displayName",
-          "places.formattedAddress",
-          "places.shortFormattedAddress",
-          "places.location",
-          "places.nationalPhoneNumber",
-          "places.internationalPhoneNumber",
-          "places.websiteUri",
-          "places.googleMapsUri",
-          "places.rating",
-          "places.userRatingCount",
-          "places.regularOpeningHours",
-          "places.types",
-          "places.primaryType",
-          "places.primaryTypeDisplayName"
-        ].join(",")
-      },
-      body: JSON.stringify({
-        textQuery,
-        languageCode: "en",
-        pageSize: 20
-      })
-    }
-  );
+  const results = [];
+  let pageToken = "";
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Google Places error: ${errorText}`);
+  for (let page = 0; page < 3; page++) {
+    const body = {
+      textQuery,
+      languageCode: "en",
+      pageSize: 20
+    };
+
+    if (pageToken) {
+      body.pageToken = pageToken;
+    }
+
+    let response;
+
+    for (let attempt = 0; attempt < 4; attempt++) {
+      response = await fetch(
+        "https://places.googleapis.com/v1/places:searchText",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Goog-Api-Key": GOOGLE_MAPS_API_KEY,
+            "X-Goog-FieldMask": GOOGLE_FIELD_MASK
+          },
+          body: JSON.stringify(body)
+        }
+      );
+
+      if (response.ok) {
+        break;
+      }
+
+      const errorText = await response.text();
+
+      if (
+        pageToken &&
+        errorText.includes("INVALID_ARGUMENT") &&
+        attempt < 3
+      ) {
+        await sleep(1500);
+        continue;
+      }
+
+      throw new Error(`Google Places error: ${errorText}`);
+    }
+
+    const data = await response.json();
+
+    if (Array.isArray(data.places)) {
+      results.push(...data.places);
+    }
+
+    pageToken = data.nextPageToken || "";
+
+    if (!pageToken) {
+      break;
+    }
+
+    await sleep(1200);
   }
 
-  return response.json();
+  const unique = [];
+  const seen = new Set();
+
+  for (const place of results) {
+    const key =
+      place.id ||
+      `${place.displayName?.text || ""}|${place.formattedAddress || ""}`;
+
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    unique.push(place);
+  }
+
+  return unique;
 }
 
 function normalizeGoogleBusiness(place, country, area, businessType) {
   const name = place.displayName?.text || "Unknown business";
 
   return {
-    id: place.id || `${name}-${Math.random().toString(36).slice(2)}`,
+    id:
+      place.id ||
+      `${name}-${Math.random().toString(36).slice(2)}`,
     name,
     type:
       place.primaryTypeDisplayName?.text ||
@@ -98,7 +164,7 @@ function normalizeGoogleBusiness(place, country, area, businessType) {
     website: place.websiteUri || "",
     websiteStatus: place.websiteUri
       ? "website-found"
-      : "possible",
+      : "no-website",
     websiteEvidence: place.websiteUri
       ? "Google Places returned a website"
       : "Google Places did not return a website",
@@ -136,7 +202,9 @@ function formatOpeningHours(hours) {
 }
 
 function normalizeUrl(url) {
-  if (!url) return "";
+  if (!url) {
+    return "";
+  }
 
   try {
     return new URL(url).href;
@@ -145,13 +213,178 @@ function normalizeUrl(url) {
   }
 }
 
+function cleanText(value) {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractTitle(html) {
+  const match = html.match(
+    /<title[^>]*>([\s\S]*?)<\/title>/i
+  );
+
+  return match
+    ? cleanText(
+        match[1]
+          .replace(/<[^>]+>/g, " ")
+      ).slice(0, 200)
+    : "";
+}
+
+function absoluteUrl(value, baseUrl) {
+  try {
+    return new URL(value, baseUrl).href;
+  } catch {
+    return "";
+  }
+}
+
+function extractWebsiteResearch(html, baseUrl) {
+  const result = {
+    email: "",
+    whatsapp: "",
+    instagram: "",
+    facebook: "",
+    tiktok: "",
+    linkedin: "",
+    x: "",
+    youtube: "",
+    otherSocials: []
+  };
+
+  const links = [];
+  const linkRegex =
+    /<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>/gi;
+
+  let match;
+
+  while ((match = linkRegex.exec(html)) !== null) {
+    const url = absoluteUrl(match[1], baseUrl);
+
+    if (url) {
+      links.push(url);
+    }
+  }
+
+  const emailMatch = html.match(
+    /mailto:([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/i
+  );
+
+  if (emailMatch) {
+    result.email = emailMatch[1];
+  }
+
+  if (!result.email) {
+    const textEmailMatch = html.match(
+      /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i
+    );
+
+    if (textEmailMatch) {
+      result.email = textEmailMatch[0];
+    }
+  }
+
+  for (const url of links) {
+    const lower = url.toLowerCase();
+
+    if (
+      !result.instagram &&
+      lower.includes("instagram.com/")
+    ) {
+      result.instagram = url;
+      continue;
+    }
+
+    if (
+      !result.facebook &&
+      lower.includes("facebook.com/")
+    ) {
+      result.facebook = url;
+      continue;
+    }
+
+    if (
+      !result.tiktok &&
+      lower.includes("tiktok.com/")
+    ) {
+      result.tiktok = url;
+      continue;
+    }
+
+    if (
+      !result.linkedin &&
+      lower.includes("linkedin.com/")
+    ) {
+      result.linkedin = url;
+      continue;
+    }
+
+    if (
+      !result.youtube &&
+      (lower.includes("youtube.com/") ||
+        lower.includes("youtu.be/"))
+    ) {
+      result.youtube = url;
+      continue;
+    }
+
+    if (
+      !result.x &&
+      (
+        lower.includes("twitter.com/") ||
+        lower.includes("x.com/")
+      )
+    ) {
+      result.x = url;
+      continue;
+    }
+
+    if (
+      !result.whatsapp &&
+      (
+        lower.includes("wa.me/") ||
+        lower.includes("whatsapp.com/")
+      )
+    ) {
+      result.whatsapp = url;
+      continue;
+    }
+
+    if (
+      !lower.startsWith("mailto:") &&
+      !lower.includes("instagram.com/") &&
+      !lower.includes("facebook.com/") &&
+      !lower.includes("tiktok.com/") &&
+      !lower.includes("linkedin.com/") &&
+      !lower.includes("youtube.com/") &&
+      !lower.includes("youtu.be/") &&
+      !lower.includes("twitter.com/") &&
+      !lower.includes("x.com/") &&
+      !lower.includes("wa.me/") &&
+      !lower.includes("whatsapp.com/")
+    ) {
+      if (
+        !url.startsWith(baseUrl) &&
+        result.otherSocials.length < 10
+      ) {
+        result.otherSocials.push(url);
+      }
+    }
+  }
+
+  return result;
+}
+
 async function checkWebsite(url) {
   if (!url) {
     return {
       status: "no-website",
       reachable: false,
       finalUrl: "",
-      title: ""
+      title: "",
+      html: "",
+      research: null
     };
   }
 
@@ -162,74 +395,99 @@ async function checkWebsite(url) {
       status: "unknown",
       reachable: false,
       finalUrl: "",
-      title: ""
+      title: "",
+      html: "",
+      research: null
     };
   }
 
+  let timeout;
+
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
+
+    timeout = setTimeout(() => {
+      controller.abort();
+    }, 10000);
 
     const response = await fetch(cleanUrl, {
       method: "GET",
       redirect: "follow",
       signal: controller.signal,
       headers: {
-        "User-Agent": "WebMeLeadFinder/1.0"
+        "User-Agent":
+          "Mozilla/5.0 (compatible; WebMeLeadFinder/1.0)"
       }
     });
 
     clearTimeout(timeout);
 
-    const contentType = response.headers.get("content-type") || "";
+    const finalUrl = response.url || cleanUrl;
+    const contentType =
+      response.headers.get("content-type") || "";
 
     if (!response.ok) {
       return {
         status: "possible",
         reachable: false,
-        finalUrl: response.url || cleanUrl,
-        title: ""
+        finalUrl,
+        title: "",
+        html: "",
+        research: null
       };
     }
 
+    let html = "";
     let title = "";
+    let research = null;
 
     if (contentType.includes("text/html")) {
-      const html = await response.text();
-      const match = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+      html = await response.text();
 
-      if (match) {
-        title = match[1]
-          .replace(/\s+/g, " ")
-          .trim()
-          .slice(0, 200);
-      }
+      title = extractTitle(html);
+
+      research = extractWebsiteResearch(
+        html,
+        finalUrl
+      );
     }
 
     return {
       status: "website-found",
       reachable: true,
-      finalUrl: response.url || cleanUrl,
-      title
+      finalUrl,
+      title,
+      html: "",
+      research
     };
   } catch {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
     return {
       status: "possible",
       reachable: false,
       finalUrl: cleanUrl,
-      title: ""
+      title: "",
+      html: "",
+      research: null
     };
   }
 }
 
 function extractJson(text) {
-  if (!text) return null;
+  if (!text) {
+    return null;
+  }
 
   try {
     return JSON.parse(text);
   } catch {}
 
-  const match = text.match(/\{[\s\S]*\}/);
+  const match = text.match(
+    /\{[\s\S]*\}/
+  );
 
   if (!match) {
     return null;
@@ -252,11 +510,11 @@ async function analyzeBusinessWithGroq(business) {
   }
 
   const prompt = `
-You are a business research assistant for Web Me Lead Finder.
+You are Web Me, a factual business research assistant.
 
-Analyze only the information provided below.
+Analyze only the information supplied below.
 
-Do not invent:
+Never invent:
 - phone numbers
 - emails
 - websites
@@ -265,16 +523,18 @@ Do not invent:
 - reviews
 - business facts
 
-Return valid JSON only.
+If something is missing, say it is missing.
 
 Business:
+
 ${JSON.stringify(business, null, 2)}
 
-Return:
+Return valid JSON only:
+
 {
-  "summary": "A concise factual summary of the business.",
-  "opportunity": "Explain whether there appears to be a website opportunity based only on the evidence. If the evidence is insufficient, say so.",
-  "notes": "Useful practical research notes for someone considering creating a website for this business."
+  "summary": "A concise factual summary.",
+  "opportunity": "Explain the website opportunity using only the evidence.",
+  "notes": "Useful practical research notes."
 }
 `;
 
@@ -294,7 +554,7 @@ Return:
             {
               role: "system",
               content:
-                "You are a factual business research assistant. Never fabricate information."
+                "You are Web Me, a factual business research assistant. Never fabricate information."
             },
             {
               role: "user",
@@ -342,28 +602,84 @@ Return:
   }
 }
 
-function buildSearchQuery(country, area, businessType) {
-  return [businessType, area, country]
+function buildSearchQuery(
+  country,
+  area,
+  businessType
+) {
+  return [
+    businessType,
+    area,
+    country
+  ]
     .filter(Boolean)
     .join(", ");
 }
 
 async function researchBusiness(business) {
-  const websiteResult = await checkWebsite(business.website);
+  const websiteResult =
+    await checkWebsite(business.website);
 
-  business.websiteStatus = websiteResult.status;
+  business.websiteStatus =
+    websiteResult.status;
 
-  business.websiteEvidence = websiteResult.reachable
-    ? `Website reachable at ${websiteResult.finalUrl}`
-    : business.website
-      ? "Website was listed but could not be fully verified"
-      : "No website was returned by Google Places";
+  business.websiteEvidence =
+    websiteResult.reachable
+      ? `Website reachable at ${websiteResult.finalUrl}`
+      : business.website
+        ? "Website was listed but could not be fully verified"
+        : "No website was returned by Google Places";
 
-  if (websiteResult.finalUrl && !business.website) {
-    business.website = websiteResult.finalUrl;
+  if (
+    websiteResult.finalUrl &&
+    !business.website
+  ) {
+    business.website =
+      websiteResult.finalUrl;
   }
 
-  const ai = await analyzeBusinessWithGroq(business);
+  if (websiteResult.research) {
+    const research =
+      websiteResult.research;
+
+    business.email =
+      research.email || business.email;
+
+    business.whatsapp =
+      research.whatsapp || business.whatsapp;
+
+    business.instagram =
+      research.instagram || business.instagram;
+
+    business.facebook =
+      research.facebook || business.facebook;
+
+    business.tiktok =
+      research.tiktok || business.tiktok;
+
+    business.linkedin =
+      research.linkedin || business.linkedin;
+
+    business.x =
+      research.x || business.x;
+
+    business.youtube =
+      research.youtube || business.youtube;
+
+    business.otherSocials =
+      research.otherSocials || [];
+
+    if (business.website) {
+      business.researchSources.push(
+        business.website
+      );
+    }
+  }
+
+  const ai =
+    await analyzeBusinessWithGroq(
+      business
+    );
 
   business.researchCompleted = true;
   business.researchSummary = ai.summary;
@@ -371,6 +687,34 @@ async function researchBusiness(business) {
   business.aiNotes = ai.notes;
 
   return business;
+}
+
+async function researchBusinesses(businesses) {
+  const results = [];
+  const concurrency = 5;
+
+  for (
+    let i = 0;
+    i < businesses.length;
+    i += concurrency
+  ) {
+    const batch =
+      businesses.slice(
+        i,
+        i + concurrency
+      );
+
+    const researched =
+      await Promise.all(
+        batch.map(business =>
+          researchBusiness(business)
+        )
+      );
+
+    results.push(...researched);
+  }
+
+  return results;
 }
 
 app.post("/api/search", async (req, res) => {
@@ -384,41 +728,37 @@ app.post("/api/search", async (req, res) => {
 
     if (!country || !businessType) {
       return res.status(400).json({
-        error: "Country and business type are required."
+        error:
+          "Country and business type are required."
       });
     }
 
-    const query = buildSearchQuery(
-      country,
-      area,
-      businessType
-    );
-
-    const placesData = await googlePlacesSearch(query);
-
-    let businesses = (placesData.places || []).map(place =>
-      normalizeGoogleBusiness(
-        place,
+    const query =
+      buildSearchQuery(
         country,
         area,
         businessType
-      )
-    );
+      );
+
+    const places =
+      await googlePlacesSearch(query);
+
+    let businesses =
+      places.map(place =>
+        normalizeGoogleBusiness(
+          place,
+          country,
+          area,
+          businessType
+        )
+      );
 
     if (research) {
-      const researched = [];
-
-      for (const business of businesses) {
-        const result = await researchBusiness(business);
-        researched.push(result);
-      }
-
-      businesses = researched;
+      businesses =
+        await researchBusinesses(
+          businesses
+        );
     }
-
-    businesses = businesses.filter(
-      business => business.websiteStatus !== "website-found"
-    );
 
     res.json({
       success: true,
@@ -431,28 +771,35 @@ app.post("/api/search", async (req, res) => {
 
     res.status(500).json({
       success: false,
-      error: error.message || "Search failed."
+      error:
+        error.message ||
+        "Search failed."
     });
   }
 });
 
-app.post("/api/research/website-plan", async (req, res) => {
-  try {
-    if (!GROQ_API_KEY) {
-      return res.status(500).json({
-        error: "GROQ_API_KEY is not configured."
-      });
-    }
+app.post(
+  "/api/research/website-plan",
+  async (req, res) => {
+    try {
+      if (!GROQ_API_KEY) {
+        return res.status(500).json({
+          error:
+            "GROQ_API_KEY is not configured."
+        });
+      }
 
-    const business = req.body.business;
+      const business =
+        req.body.business;
 
-    if (!business) {
-      return res.status(400).json({
-        error: "Business information is required."
-      });
-    }
+      if (!business) {
+        return res.status(400).json({
+          error:
+            "Business information is required."
+        });
+      }
 
-    const prompt = `
+      const prompt = `
 Create a practical website plan for this real business using only the supplied information.
 
 Do not invent business facts.
@@ -470,66 +817,229 @@ Return JSON:
 }
 
 Business:
-${JSON.stringify(business, null, 2)}
+
+${JSON.stringify(
+  business,
+  null,
+  2
+)}
 `;
 
-    const response = await fetch(
-      "https://api.groq.com/openai/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${GROQ_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
-          temperature: 0.3,
-          messages: [
-            {
-              role: "system",
-              content:
-                "You create practical website plans from verified business information."
+      const response =
+        await fetch(
+          "https://api.groq.com/openai/v1/chat/completions",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+              Authorization:
+                `Bearer ${GROQ_API_KEY}`
             },
-            {
-              role: "user",
-              content: prompt
-            }
-          ]
-        })
+            body: JSON.stringify({
+              model:
+                "llama-3.3-70b-versatile",
+              temperature: 0.3,
+              messages: [
+                {
+                  role: "system",
+                  content:
+                    "You create practical website plans from verified business information."
+                },
+                {
+                  role: "user",
+                  content: prompt
+                }
+              ]
+            })
+          }
+        );
+
+      if (!response.ok) {
+        const errorText =
+          await response.text();
+
+        return res.status(500).json({
+          error: errorText
+        });
       }
-    );
+
+      const data =
+        await response.json();
+
+      const content =
+        data.choices?.[0]?.message
+          ?.content || "";
+
+      const plan =
+        extractJson(content);
+
+      res.json({
+        success: true,
+        plan:
+          plan || {
+            websiteConcept:
+              content
+          }
+      });
+    } catch (error) {
+      console.error(error);
+
+      res.status(500).json({
+        success: false,
+        error:
+          error.message ||
+          "Website plan generation failed."
+      });
+    }
+  }
+);
+
+app.post("/api/ai/chat", async (req, res) => {
+  try {
+    if (!GROQ_API_KEY) {
+      return res.status(500).json({
+        success: false,
+        error:
+          "GROQ_API_KEY is not configured."
+      });
+    }
+
+    const messages =
+      Array.isArray(req.body.messages)
+        ? req.body.messages
+        : [];
+
+    const business =
+      req.body.business || null;
+
+    const searchResults =
+      Array.isArray(req.body.searchResults)
+        ? req.body.searchResults
+        : [];
+
+    if (!messages.length) {
+      return res.status(400).json({
+        success: false,
+        error:
+          "At least one message is required."
+      });
+    }
+
+    const businessContext =
+      business
+        ? `
+Currently selected business:
+
+${JSON.stringify(
+  business,
+  null,
+  2
+)}
+`
+        : "No individual business is currently selected.";
+
+    const searchContext =
+      searchResults.length
+        ? `
+Current search results:
+
+${JSON.stringify(
+  searchResults.slice(0, 60),
+  null,
+  2
+)}
+`
+        : "There are no current search results attached.";
+
+    const systemPrompt = `
+You are Web Me, the AI assistant inside Web Me Lead Finder.
+
+You help the user research businesses, understand leads, inspect collected evidence, discuss website opportunities, and work with the current search results.
+
+Use only the information provided in the conversation and attached business/search data.
+
+Never invent:
+- business facts
+- phone numbers
+- emails
+- websites
+- social media accounts
+- ratings
+- addresses
+- reviews
+- claims about a business that are not supported by the supplied information
+
+If information is missing, clearly say it is missing.
+
+You are not a generic chatbot. Your purpose is to help the user work with Web Me Lead Finder.
+
+${businessContext}
+
+${searchContext}
+`;
+
+    const response =
+      await fetch(
+        "https://api.groq.com/openai/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+            Authorization:
+              `Bearer ${GROQ_API_KEY}`
+          },
+          body: JSON.stringify({
+            model:
+              "llama-3.3-70b-versatile",
+            temperature: 0.3,
+            messages: [
+              {
+                role: "system",
+                content: systemPrompt
+              },
+              ...messages.slice(-20)
+            ]
+          })
+        }
+      );
 
     if (!response.ok) {
-      const errorText = await response.text();
+      const errorText =
+        await response.text();
 
       return res.status(500).json({
+        success: false,
         error: errorText
       });
     }
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
-    const content =
-      data.choices?.[0]?.message?.content || "";
-
-    const plan = extractJson(content);
+    const reply =
+      data.choices?.[0]?.message
+        ?.content || "";
 
     res.json({
       success: true,
-      plan: plan || {
-        websiteConcept: content
-      }
+      reply
     });
   } catch (error) {
     console.error(error);
 
     res.status(500).json({
       success: false,
-      error: error.message || "Website plan generation failed."
+      error:
+        error.message ||
+        "AI request failed."
     });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Web Me Lead Finder API running on port ${PORT}`);
+  console.log(
+    `Web Me Lead Finder API running on port ${PORT}`
+  );
 });
