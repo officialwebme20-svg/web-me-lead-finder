@@ -15,110 +15,91 @@
   <div class="app-shell">
 
     <aside class="sidebar" id="sidebar">
-      <div class="sidebar-top">
-
-        <a href="#" class="brand">
-          <div class="brand-mark">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div class="brand-name">
-            <strong>WEB ME</strong>
-            <small>LEAD FINDER</small>
-          </div>
-        </a>
-
-        <nav class="main-nav">
-
-          <div class="nav-section">
-            <span class="nav-label">WORKSPACE</span>
-
-            <a href="#" class="nav-item active" data-page="finder">
-              <span class="nav-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <circle cx="11" cy="11" r="7"></circle>
-                  <path d="m20 20-4-4"></path>
-                </svg>
-              </span>
-              <span>Lead Finder</span>
-            </a>
-
-            <a href="#" class="nav-item" data-page="research">
-              <span class="nav-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path>
-                  <path d="M4 5.5v16"></path>
-                  <path d="M8 7h8"></path>
-                  <path d="M8 11h8"></path>
-                </svg>
-              </span>
-              <span>Research</span>
-            </a>
-
-            <a href="#" class="nav-item" data-page="saved">
-              <span class="nav-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path d="M6 4.5A2.5 2.5 0 0 1 8.5 2h7A2.5 2.5 0 0 1 18 4.5V21l-6-3.5L6 21z"></path>
-                </svg>
-              </span>
-              <span>Saved Leads</span>
-              <span class="nav-count" id="savedCount">0</span>
-            </a>
-
-            <a href="#" class="nav-item" data-page="exports">
-              <span class="nav-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path d="M12 3v12"></path>
-                  <path d="m7 10 5 5 5-5"></path>
-                  <path d="M5 21h14"></path>
-                </svg>
-              </span>
-              <span>Exports</span>
-            </a>
-          </div>
-
-          <div class="nav-section">
-            <span class="nav-label">SYSTEM</span>
-
-            <a href="#" class="nav-item" data-page="settings">
-              <span class="nav-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"></path>
-                  <path d="m19.4 15 .1.1a2 2 0 0 1-2.8 2.8l-.1-.1a2 2 0 0 0-3.4 1.4v.2a2 2 0 0 1-4 0v-.2a2 2 0 0 0-3.4-1.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A2 2 0 0 0 1.7 11.6h-.2a2 2 0 0 1 0-4h.2a2 2 0 0 0 1.4-3.4L3 4.1a2 2 0 1 1 2.8-2.8l.1.1a2 2 0 0 0 3.4-1.4v-.2a2 2 0 0 1 4 0V0a2 2 0 0 0 3.4 1.4l.1-.1A2 2 0 1 1 19.6 4l-.1.1a2 2 0 0 0 1.4 3.4h.2a2 2 0 0 1 0 4h-.2a2 2 0 0 0-1.5 3.5Z" transform="scale(.85) translate(2 2)"></path>
-                </svg>
-              </span>
-              <span>Settings</span>
-            </a>
-          </div>
-
-        </nav>
+      <div class="brand">
+        <div class="brand-mark">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="brand-text">
+          <strong>WEB ME</strong>
+          <small>LEAD FINDER</small>
+        </div>
       </div>
+
+      <nav class="main-nav">
+        <button class="nav-item active" data-section="leadFinder">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5v-13Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="m8 15 2.5-3 2 2 3.5-4 2 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Lead Finder</span>
+        </button>
+
+        <button class="nav-item" data-section="research">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+              <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M8.5 11h5M11 8.5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span>Research</span>
+        </button>
+
+        <button class="nav-item" data-section="saved">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M6 5.5A1.5 1.5 0 0 1 7.5 4h9A1.5 1.5 0 0 1 18 5.5V20l-6-3-6 3V5.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Saved Leads</span>
+        </button>
+
+        <button class="nav-item" data-section="exports">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 4v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="m8 10 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 19h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span>Exports</span>
+        </button>
+
+        <button class="nav-item" data-section="settings">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 0 1-3.4 0v-.2a1.7 1.7 0 0 0-2.9-1.2l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1A1.7 1.7 0 0 0 6.2 12a1.7 1.7 0 0 0-1.2-2.9h-.2a1.7 1.7 0 0 1 0-3.4H5a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1A1.7 1.7 0 0 0 11.5 1h.2a1.7 1.7 0 0 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1A1.7 1.7 0 0 0 19.2 7v.2a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 0 1 0 3.4h-.2a1.7 1.7 0 0 0-1 1.5Z" transform="translate(-2 2)" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+          </span>
+          <span>Settings</span>
+        </button>
+      </nav>
 
       <div class="sidebar-bottom">
         <div class="usage-card">
-          <div class="usage-head">
-            <span>SEARCH USAGE</span>
-            <span id="usagePercent">0%</span>
+          <div class="usage-top">
+            <span>RESEARCH ENGINE</span>
+            <span class="status-dot"></span>
           </div>
-          <div class="usage-track">
-            <div class="usage-progress" id="usageProgress"></div>
-          </div>
-          <p><span id="usageCount">0</span> searches used</p>
+          <strong>Web Me Intelligence</strong>
+          <p>Real business discovery, public-web research and lead verification.</p>
         </div>
 
-        <div class="sidebar-profile">
+        <div class="profile-card">
           <div class="profile-avatar">WM</div>
           <div class="profile-info">
             <strong>Web Me</strong>
             <span>Lead Researcher</span>
           </div>
           <button class="profile-more" type="button" aria-label="Profile options">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="5" cy="12" r="1"></circle>
-              <circle cx="12" cy="12" r="1"></circle>
-              <circle cx="19" cy="12" r="1"></circle>
-            </svg>
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
         </div>
       </div>
@@ -127,416 +108,366 @@
     <main class="main-content">
 
       <header class="topbar">
-        <div class="topbar-left">
-          <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 6h16"></path>
-              <path d="M4 12h16"></path>
-              <path d="M4 18h16"></path>
-            </svg>
-          </button>
+        <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-          <div class="breadcrumb">
-            <span>Workspace</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="m9 18 6-6-6-6"></path>
-            </svg>
-            <strong>Lead Finder</strong>
-          </div>
+        <div class="breadcrumb">
+          <span>Workspace</span>
+          <span>/</span>
+          <strong>Lead Finder</strong>
         </div>
 
-        <div class="topbar-right">
+        <div class="topbar-actions">
+          <button class="topbar-ai-button" id="globalAiButton" type="button">
+            <span class="ai-button-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/>
+              </svg>
+            </span>
+            <span>Ask Web Me</span>
+          </button>
+
           <button class="icon-button notification-button" type="button" aria-label="Notifications">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-              <path d="M10 21h4"></path>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              <path d="M10 21h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
             </svg>
             <span class="notification-dot"></span>
           </button>
-
-          <div class="topbar-avatar">WM</div>
         </div>
       </header>
 
-      <div class="page-container">
+      <section class="page-section active-section" id="leadFinderSection">
 
-        <section class="hero-section">
-          <div class="hero-grid"></div>
-          <div class="hero-orbit orbit-one"></div>
-          <div class="hero-orbit orbit-two"></div>
-
-          <div class="hero-content">
+        <div class="hero-section">
+          <div class="hero-copy">
             <div class="eyebrow">
-              <span class="eyebrow-line"></span>
-              BUSINESS INTELLIGENCE
+              <span class="eyebrow-dot"></span>
+              GLOBAL BUSINESS RESEARCH
             </div>
 
-            <h1>Find businesses<br><span>without a website.</span></h1>
+            <h1>Find businesses.<br><span>Find opportunities.</span></h1>
 
             <p>
-              Discover real businesses, research their public online presence,
-              and identify qualified website opportunities across the world.
+              Discover real businesses anywhere in the world, investigate their
+              public online presence, and identify businesses that may need a better web presence.
             </p>
           </div>
 
-          <div class="hero-badge">
-            <div class="hero-badge-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <circle cx="12" cy="12" r="9"></circle>
-                <path d="M3 12h18"></path>
-                <path d="M12 3c2.2 2.4 3.4 5.4 3.4 9S14.2 18.6 12 21c-2.2-2.4-3.4-5.4-3.4-9S9.8 5.4 12 3Z"></path>
-              </svg>
-            </div>
-            <div>
-              <strong>GLOBAL RESEARCH</strong>
-              <span>Real businesses. Verified leads.</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="search-section">
-
-          <div class="section-heading">
-            <div>
-              <span class="section-kicker">NEW SEARCH</span>
-              <h2>Define your market</h2>
-            </div>
-            <div class="research-status">
-              <span class="status-dot"></span>
-              Full research enabled
+          <div class="hero-visual">
+            <div class="hero-orbit orbit-one"></div>
+            <div class="hero-orbit orbit-two"></div>
+            <div class="hero-core">
+              <div class="hero-core-inner">
+                <svg viewBox="0 0 64 64" fill="none">
+                  <circle cx="29" cy="29" r="15" stroke="currentColor" stroke-width="2.5"/>
+                  <path d="m40 40 13 13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M22 29h14M29 22v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
             </div>
           </div>
+        </div>
 
-          <form class="search-card" id="searchForm">
+        <section class="search-card">
+          <div class="search-card-header">
+            <div>
+              <span class="section-label">SEARCH THE WORLD</span>
+              <h2>Find real businesses</h2>
+            </div>
 
-            <div class="search-field country-field">
-              <label for="countryInput">COUNTRY</label>
+            <div class="search-engine-status">
+              <span class="live-dot"></span>
+              <span>Live research</span>
+            </div>
+          </div>
 
-              <div class="country-picker" id="countryPicker">
-                <div class="country-input-wrap">
-                  <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="M3 12h18"></path>
-                    <path d="M12 3c2.2 2.4 3.4 5.4 3.4 9S14.2 18.6 12 21c-2.2-2.4-3.4-5.4-3.4-9S9.8 5.4 12 3Z"></path>
-                  </svg>
+          <form id="searchForm" class="search-form">
 
-                  <input
-                    type="text"
-                    id="countryInput"
-                    autocomplete="off"
-                    placeholder="Search country..."
-                  >
+            <div class="field-group country-field">
+              <label for="countryInput">Country</label>
+              <button class="country-select" id="countryInput" type="button">
+                <span class="country-flag" id="countryFlag">🌍</span>
+                <span class="country-name" id="countryName">Select country</span>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
 
-                  <svg class="picker-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg>
-                </div>
-
-                <div class="country-dropdown" id="countryDropdown">
-                  <div class="country-results" id="countryResults"></div>
-                </div>
-
-                <input type="hidden" id="countryValue" name="country">
+            <div class="field-group area-field">
+              <label for="areaInput">Area</label>
+              <div class="input-wrap">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.7"/>
+                  <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.7"/>
+                </svg>
+                <input id="areaInput" type="text" placeholder="City, state, region or local area">
               </div>
             </div>
 
-            <div class="search-field">
-              <label for="areaInput">AREA</label>
-
+            <div class="field-group type-field">
+              <label for="businessTypeInput">Business or organization type</label>
               <div class="input-wrap">
-                <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                  <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
-                  <circle cx="12" cy="10" r="2.5"></circle>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20V9l8-5 8 5v11" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M8 20v-6h8v6M9 9h.01M12 9h.01M15 9h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
                 </svg>
-
-                <input
-                  type="text"
-                  id="areaInput"
-                  name="area"
-                  placeholder="City, state, region or local area"
-                  autocomplete="off"
-                >
-              </div>
-            </div>
-
-            <div class="search-field business-type-field">
-              <label for="businessTypeInput">BUSINESS / ORGANIZATION TYPE</label>
-
-              <div class="input-wrap">
-                <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                  <rect x="4" y="5" width="16" height="15" rx="2"></rect>
-                  <path d="M8 5V3h8v2"></path>
-                  <path d="M8 10h8"></path>
-                  <path d="M8 14h5"></path>
-                </svg>
-
-                <input
-                  type="text"
-                  id="businessTypeInput"
-                  name="businessType"
-                  placeholder="e.g. laundries, restaurants, clinics"
-                  autocomplete="off"
-                >
+                <input id="businessTypeInput" type="text" placeholder="e.g. salons, restaurants, schools">
               </div>
             </div>
 
             <button class="search-button" id="searchButton" type="submit">
-              <span class="button-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="7"></circle>
-                  <path d="m20 20-4-4"></path>
-                </svg>
-              </span>
-              <span>Search Businesses</span>
-              <svg class="button-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14"></path>
-                <path d="m13 6 6 6-6 6"></path>
+              <span class="search-button-text">Search businesses</span>
+              <span class="search-button-loader"></span>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="m5 12 14 0M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
-
           </form>
 
           <div class="search-note">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-              <circle cx="12" cy="12" r="9"></circle>
-              <path d="M12 10v6"></path>
-              <circle cx="12" cy="7" r=".8" fill="currentColor" stroke="none"></circle>
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M12 10.5v5M12 7.5h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
             </svg>
-            <span>Results are researched beyond business listings to help verify website and online presence.</span>
+            <span>Web Me searches real public business information. Results are verified where possible and unknown information is left unverified.</span>
           </div>
-
         </section>
 
-        <section class="stats-section">
-
+        <section class="stats-grid">
           <div class="stat-card">
             <div class="stat-icon blue">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <circle cx="11" cy="11" r="7"></circle>
-                <path d="m20 20-4-4"></path>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
               </svg>
             </div>
             <div class="stat-content">
-              <span>BUSINESSES FOUND</span>
-              <strong id="businessesFound">0</strong>
-            </div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-icon green">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <path d="M5 5h14v14H5z"></path>
-                <path d="M8 12h8"></path>
-                <path d="M12 8v8"></path>
-              </svg>
-            </div>
-            <div class="stat-content">
-              <span>NO WEBSITE FOUND</span>
-              <strong id="noWebsiteFound">0</strong>
+              <span>Businesses Found</span>
+              <strong id="totalBusinesses">0</strong>
             </div>
           </div>
 
           <div class="stat-card">
             <div class="stat-icon orange">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <path d="M4 19h16"></path>
-                <path d="M6 16V9"></path>
-                <path d="M10 16V5"></path>
-                <path d="M14 16v-4"></path>
-                <path d="M18 16V7"></path>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M8 8h8v8H8z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M12 10v4M10 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </div>
             <div class="stat-content">
-              <span>WEBSITE FOUND</span>
-              <strong id="websiteFound">0</strong>
+              <span>No Website Found</span>
+              <strong id="noWebsiteCount">0</strong>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 4.5h14v15H5z" stroke="currentColor" stroke-width="1.7"/>
+                <path d="m8 12 2.5 2.5L16 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="stat-content">
+              <span>Website Found</span>
+              <strong id="websiteFoundCount">0</strong>
             </div>
           </div>
 
           <div class="stat-card">
             <div class="stat-icon purple">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <circle cx="12" cy="12" r="8"></circle>
-                <path d="m8 12 2.5 2.5L16 9"></path>
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/>
+                <path d="m8.5 12 2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="stat-content">
-              <span>RESEARCH COMPLETED</span>
-              <strong id="researchCompleted">0%</strong>
+              <span>Research Completed</span>
+              <strong id="researchCompletedCount">0</strong>
             </div>
           </div>
-
         </section>
 
         <section class="results-section">
 
           <div class="results-header">
             <div>
-              <span class="section-kicker">DISCOVERY RESULTS</span>
-              <h2>Potential website leads</h2>
-              <p id="resultsDescription">Search to discover businesses that may need a website.</p>
+              <span class="section-label">RESEARCH RESULTS</span>
+              <h2>Businesses</h2>
+              <p id="resultsSubtitle">Search to discover businesses and research their online presence.</p>
             </div>
 
             <div class="results-actions">
               <button class="secondary-button" id="filterButton" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                  <path d="M4 6h16"></path>
-                  <path d="M7 12h10"></path>
-                  <path d="M10 18h4"></path>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 6h16M7 12h10M10 18h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
                 </svg>
                 Filters
                 <span class="filter-count" id="filterCount">0</span>
               </button>
 
               <button class="secondary-button" id="exportButton" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                  <path d="M12 3v12"></path>
-                  <path d="m7 10 5 5 5-5"></path>
-                  <path d="M5 21h14"></path>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 4v10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                  <path d="m8 10 4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M5 19h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
                 </svg>
                 Export CSV
               </button>
+
+              <div class="sort-wrap">
+                <label for="sortSelect">Sort</label>
+                <select id="sortSelect">
+                  <option value="relevance">Relevance</option>
+                  <option value="rating">Highest rating</option>
+                  <option value="reviews">Most reviews</option>
+                  <option value="name">Business name</option>
+                  <option value="website">Website status</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <div class="results-toolbar">
-            <div class="result-summary">
-              <span id="resultCount">0</span> leads
-            </div>
-
-            <div class="sort-control">
-              <label for="sortSelect">Sort by</label>
-              <select id="sortSelect">
-                <option value="relevance">Relevance</option>
-                <option value="rating">Rating</option>
-                <option value="reviews">Reviews</option>
-                <option value="name">Business name</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="results-container" id="resultsContainer">
+          <div class="results-container">
 
             <div class="empty-state" id="emptyState">
-              <div class="empty-visual">
-                <div class="empty-ring ring-one"></div>
-                <div class="empty-ring ring-two"></div>
-                <div class="empty-center">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                    <circle cx="11" cy="11" r="6.5"></circle>
-                    <path d="m16 16 5 5"></path>
-                    <path d="M8.5 11h5"></path>
-                  </svg>
-                </div>
+              <div class="empty-icon">
+                <svg viewBox="0 0 64 64" fill="none">
+                  <circle cx="29" cy="29" r="17" stroke="currentColor" stroke-width="2"/>
+                  <path d="m42 42 12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M22 29h14M29 22v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
               </div>
-
-              <h3>Ready to find your next lead</h3>
-              <p>
-                Choose a market and business type above.
-                Web Me will research real businesses and surface potential website opportunities.
-              </p>
-
-              <div class="empty-points">
-                <span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="m8 12 2.5 2.5L16 9"></path>
-                  </svg>
-                  Real businesses
-                </span>
-
-                <span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="m8 12 2.5 2.5L16 9"></path>
-                  </svg>
-                  Website verification
-                </span>
-
-                <span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="m8 12 2.5 2.5L16 9"></path>
-                  </svg>
-                  Public contact research
-                </span>
-              </div>
+              <h3>Start your research</h3>
+              <p>Select a country, enter an area and choose the type of business you want to discover.</p>
+              <button class="empty-action" id="emptySearchButton" type="button">Start searching</button>
             </div>
 
-            <div class="loading-state hidden" id="loadingState">
-
-              <div class="loading-visual">
+            <div class="loading-state" id="loadingState">
+              <div class="loading-header">
                 <div class="loading-spinner"></div>
-                <div class="loading-core">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="11" cy="11" r="6"></circle>
-                    <path d="m16 16 4 4"></path>
-                  </svg>
+                <div>
+                  <strong id="loadingTitle">Researching businesses</strong>
+                  <span id="loadingDescription">Web Me is searching real public business data.</span>
                 </div>
               </div>
 
-              <h3 id="loadingTitle">Searching businesses</h3>
-              <p id="loadingMessage">Connecting to business data sources...</p>
-
-              <div class="progress-area">
-                <div class="progress-label">
-                  <span id="progressStage">Starting search</span>
-                  <strong id="progressPercent">0%</strong>
-                </div>
-
+              <div class="loading-progress">
                 <div class="progress-track">
                   <div class="progress-bar" id="progressBar"></div>
                 </div>
+                <span id="progressPercent">0%</span>
               </div>
 
               <div class="loading-stages">
 
-                <div class="loading-stage active" id="stageBusinesses">
+                <div class="loading-stage active" id="stageFinding">
                   <span class="stage-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                      <circle cx="12" cy="12" r="8"></circle>
-                      <path d="M12 8v4l2.5 2"></path>
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
                     </svg>
                   </span>
-                  <span>Finding businesses</span>
+                  <div>
+                    <strong>Finding businesses</strong>
+                    <span>Searching Google business data</span>
+                  </div>
+                  <span class="stage-status"></span>
                 </div>
 
-                <div class="loading-stage" id="stageWebsites">
+                <div class="loading-stage" id="stageGoogle">
                   <span class="stage-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                      <circle cx="12" cy="12" r="9"></circle>
-                      <path d="M3 12h18"></path>
-                      <path d="M12 3c2.2 2.4 3.4 5.4 3.4 9S14.2 18.6 12 21c-2.2-2.4-3.4-5.4-3.4-9S9.8 5.4 12 3Z"></path>
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="M8 9h8M8 12h8M8 15h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                   </span>
-                  <span>Checking websites</span>
+                  <div>
+                    <strong>Collecting business information</strong>
+                    <span>Addresses, phones, ratings and hours</span>
+                  </div>
+                  <span class="stage-status"></span>
+                </div>
+
+                <div class="loading-stage" id="stageWebsite">
+                  <span class="stage-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.4 5.1 3.4 8.5S14.2 18.2 12 20.5C9.8 18.2 8.6 15.4 8.6 12S9.8 5.8 12 3.5Z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <strong>Checking websites</strong>
+                    <span>Verifying website presence and accessibility</span>
+                  </div>
+                  <span class="stage-status"></span>
                 </div>
 
                 <div class="loading-stage" id="stageResearch">
                   <span class="stage-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path>
-                      <path d="M4 5.5v16"></path>
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M6 4h12v16H6z" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                   </span>
-                  <span>Researching public presence</span>
+                  <div>
+                    <strong>Researching public presence</strong>
+                    <span>Finding public profiles, directories and contact information</span>
+                  </div>
+                  <span class="stage-status"></span>
+                </div>
+
+                <div class="loading-stage" id="stageSocial">
+                  <span class="stage-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <circle cx="6" cy="12" r="2.2" stroke="currentColor" stroke-width="1.6"/>
+                      <circle cx="18" cy="7" r="2.2" stroke="currentColor" stroke-width="1.6"/>
+                      <circle cx="18" cy="17" r="2.2" stroke="currentColor" stroke-width="1.6"/>
+                      <path d="m8 11 7.8-3M8 13l7.8 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <strong>Checking social profiles</strong>
+                    <span>Looking for public social accounts</span>
+                  </div>
+                  <span class="stage-status"></span>
                 </div>
 
                 <div class="loading-stage" id="stageVerify">
                   <span class="stage-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                      <circle cx="12" cy="12" r="8"></circle>
-                      <path d="m8 12 2.5 2.5L16 9"></path>
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="m8.5 12 2.3 2.3 4.8-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </span>
-                  <span>Verifying opportunities</span>
+                  <div>
+                    <strong>Verifying leads</strong>
+                    <span>Preparing your research results</span>
+                  </div>
+                  <span class="stage-status"></span>
                 </div>
 
               </div>
-
             </div>
 
-            <div class="table-wrapper hidden" id="tableWrapper">
+            <div class="filtered-empty-state" id="filteredEmptyState">
+              <div class="filtered-empty-icon">
+                <svg viewBox="0 0 48 48" fill="none">
+                  <path d="M8 10h32M12 20h24M18 30h12M22 38h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h3>No businesses match these filters</h3>
+              <p>Try changing your filters or clearing them to see more businesses.</p>
+              <button type="button" id="clearFiltersEmpty">Clear filters</button>
+            </div>
 
+            <div class="results-table-wrap" id="resultsTableWrap">
               <table class="results-table">
                 <thead>
                   <tr>
@@ -549,44 +480,25 @@
                     <th></th>
                   </tr>
                 </thead>
-
                 <tbody id="resultsBody"></tbody>
               </table>
+            </div>
 
-              <div class="table-footer">
-                <span id="tableFooterText">Showing 0 results</span>
-
-                <div class="pagination" id="pagination">
-                  <button type="button" class="page-button disabled" id="previousPage" aria-label="Previous page">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <path d="m15 18-6-6 6-6"></path>
-                    </svg>
-                  </button>
-
-                  <span class="page-number active">1</span>
-
-                  <button type="button" class="page-button disabled" id="nextPage" aria-label="Next page">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                      <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-                  </button>
-                </div>
+            <div class="pagination" id="pagination">
+              <div class="pagination-info">
+                <span id="paginationText">Showing 0 businesses</span>
               </div>
-
+              <div class="pagination-controls" id="paginationControls"></div>
             </div>
 
           </div>
-
         </section>
 
         <section class="workflow-section">
-
           <div class="workflow-header">
-            <div>
-              <span class="section-kicker">LEAD WORKFLOW</span>
-              <h2>From discovery to website</h2>
-            </div>
-            <p>Research first. Build with context. Reach out prepared.</p>
+            <span class="section-label">HOW WEB ME WORKS</span>
+            <h2>From discovery to opportunity.</h2>
+            <p>Web Me turns public business information into actionable research.</p>
           </div>
 
           <div class="workflow-grid">
@@ -594,129 +506,364 @@
             <div class="workflow-card">
               <span class="workflow-number">01</span>
               <div class="workflow-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                  <circle cx="11" cy="11" r="7"></circle>
-                  <path d="m20 20-4-4"></path>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.7"/>
+                  <path d="m15.5 15.5 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
                 </svg>
               </div>
               <h3>Find</h3>
-              <p>Discover real businesses in the market you choose.</p>
+              <p>Search real businesses by country, area and business category.</p>
             </div>
-
-            <div class="workflow-connector"></div>
 
             <div class="workflow-card">
               <span class="workflow-number">02</span>
               <div class="workflow-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                  <circle cx="12" cy="12" r="8"></circle>
-                  <path d="M12 8v4l3 2"></path>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="1.7"/>
+                  <path d="M8 9h8M8 12h6M8 15h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
               </div>
               <h3>Research</h3>
-              <p>Investigate websites, social profiles and public contacts.</p>
+              <p>Collect public information from business listings and the open web.</p>
             </div>
-
-            <div class="workflow-connector"></div>
 
             <div class="workflow-card">
               <span class="workflow-number">03</span>
               <div class="workflow-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                  <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path>
-                  <path d="M4 5.5v16"></path>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/>
+                  <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
                 </svg>
               </div>
               <h3>Understand</h3>
-              <p>Open the full business profile before making contact.</p>
+              <p>Review websites, social profiles, services, contacts and public signals.</p>
             </div>
-
-            <div class="workflow-connector"></div>
 
             <div class="workflow-card">
               <span class="workflow-number">04</span>
               <div class="workflow-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-                  <path d="M4 4h16v16H4z"></path>
-                  <path d="M8 8h8"></path>
-                  <path d="M8 12h5"></path>
-                  <path d="M8 16h8"></path>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 19V5h14v14H5Z" stroke="currentColor" stroke-width="1.7"/>
+                  <path d="m8 15 3-3 2 2 3-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
               <h3>Build</h3>
-              <p>Prepare a website brief tailored to the business.</p>
+              <p>Turn verified research into a clear website opportunity and project brief.</p>
             </div>
 
           </div>
-
         </section>
 
-        <footer class="footer">
-          <div class="footer-left">
-            <span>WEB ME LEAD FINDER</span>
-            <span class="footer-divider"></span>
-            <span>Business research platform</span>
+      </section>
+
+      <section class="page-section hidden-section" id="researchSection">
+        <div class="section-page-header">
+          <div>
+            <span class="section-label">RESEARCH WORKSPACE</span>
+            <h1>Business Research</h1>
+            <p>Open a lead to investigate its public business presence.</p>
+          </div>
+          <button class="primary-button" id="researchNewButton" type="button">New search</button>
+        </div>
+
+        <div class="research-overview-card">
+          <div class="research-overview-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7"/>
+              <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h2>Select a business to research</h2>
+            <p>Your research results will appear here after you open a business from Lead Finder.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section hidden-section" id="savedSection">
+        <div class="section-page-header">
+          <div>
+            <span class="section-label">YOUR LEADS</span>
+            <h1>Saved Leads</h1>
+            <p>Keep businesses you want to research or contact later.</p>
+          </div>
+          <span class="saved-count" id="savedCount">0 saved</span>
+        </div>
+
+        <div class="saved-results" id="savedResults"></div>
+
+        <div class="saved-empty" id="savedEmpty">
+          <div class="saved-empty-icon">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M12 8h24v32l-12-6-12 6V8Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h2>No saved leads yet</h2>
+          <p>Save businesses from your research results and they will appear here.</p>
+          <button class="primary-button" id="savedSearchButton" type="button">Find businesses</button>
+        </div>
+      </section>
+
+      <section class="page-section hidden-section" id="exportsSection">
+        <div class="section-page-header">
+          <div>
+            <span class="section-label">DATA EXPORT</span>
+            <h1>Exports</h1>
+            <p>Export researched business information for your workflow.</p>
+          </div>
+        </div>
+
+        <div class="export-card">
+          <div class="export-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 4v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="m8 10 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 19h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="export-copy">
+            <h2>Export current research</h2>
+            <p>Download your current business results, contact information, website status and public research fields as a CSV file.</p>
+          </div>
+          <button class="primary-button" id="exportsDownloadButton" type="button">Export CSV</button>
+        </div>
+      </section>
+
+      <section class="page-section hidden-section" id="settingsSection">
+        <div class="section-page-header">
+          <div>
+            <span class="section-label">WORKSPACE SETTINGS</span>
+            <h1>Settings</h1>
+            <p>Configure your Web Me research workspace.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <div class="settings-card">
+            <div class="settings-card-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Research mode</h3>
+              <p>Real business discovery and public-web verification.</p>
+              <span class="settings-status">Active</span>
+            </div>
           </div>
 
-          <div class="footer-right">
-            <span>Research responsibly using public information.</span>
+          <div class="settings-card">
+            <div class="settings-card-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M12 8v4l2.5 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Research verification</h3>
+              <p>Unknown information is kept unverified instead of being invented.</p>
+              <span class="settings-status">Protected</span>
+            </div>
           </div>
-        </footer>
 
-      </div>
+          <div class="settings-card">
+            <div class="settings-card-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <circle cx="9" cy="6" r="2" fill="currentColor"/>
+                <circle cx="15" cy="12" r="2" fill="currentColor"/>
+                <circle cx="11" cy="18" r="2" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Data sources</h3>
+              <p>Google business information and public web sources where available.</p>
+              <span class="settings-status">Connected</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <span>WEB ME LEAD FINDER</span>
+        <span>Real businesses. Public research. Better opportunities.</span>
+      </footer>
+
     </main>
-
   </div>
 
-  <div class="overlay hidden" id="overlay"></div>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="country-picker" id="countryPicker">
+    <div class="country-picker-header">
+      <div>
+        <span class="section-label">LOCATION</span>
+        <h3>Select country</h3>
+      </div>
+      <button class="close-small" id="closeCountryPicker" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="country-search">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="10.5" cy="10.5" r="6" stroke="currentColor" stroke-width="1.7"/>
+        <path d="m15 15 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <input id="countrySearchInput" type="text" placeholder="Search countries...">
+    </div>
+
+    <div class="country-list" id="countryList"></div>
+  </div>
+
+  <aside class="filter-panel" id="filterPanel">
+    <div class="panel-header">
+      <div>
+        <span class="section-label">FILTER RESULTS</span>
+        <h2>Research filters</h2>
+      </div>
+      <button class="close-small" id="closeFilter" type="button" aria-label="Close filters">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="filter-body">
+
+      <div class="filter-group">
+        <span class="filter-group-title">Website</span>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterNoWebsite">
+          <span class="custom-checkbox"></span>
+          <span>No website found</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterWebsite">
+          <span class="custom-checkbox"></span>
+          <span>Website found</span>
+        </label>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-group-title">Social presence</span>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterInstagram">
+          <span class="custom-checkbox"></span>
+          <span>Has Instagram</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterFacebook">
+          <span class="custom-checkbox"></span>
+          <span>Has Facebook</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterTikTok">
+          <span class="custom-checkbox"></span>
+          <span>Has TikTok</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterLinkedIn">
+          <span class="custom-checkbox"></span>
+          <span>Has LinkedIn</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterX">
+          <span class="custom-checkbox"></span>
+          <span>Has X / Twitter</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterYouTube">
+          <span class="custom-checkbox"></span>
+          <span>Has YouTube</span>
+        </label>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterWhatsApp">
+          <span class="custom-checkbox"></span>
+          <span>Has WhatsApp</span>
+        </label>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-title-row">
+          <span class="filter-group-title">Minimum rating</span>
+          <strong id="ratingValue">0.0</strong>
+        </div>
+
+        <input class="rating-range" id="filterRating" type="range" min="0" max="5" step="0.1" value="0">
+
+        <div class="rating-range-labels">
+          <span>Any</span>
+          <span>5.0</span>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-group-title">Research</span>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="filterResearchCompleted">
+          <span class="custom-checkbox"></span>
+          <span>Research completed</span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="panel-footer">
+      <button class="text-button" id="clearFilters" type="button">Clear filters</button>
+      <button class="primary-button" id="applyFilters" type="button">Apply filters</button>
+    </div>
+  </aside>
 
   <aside class="details-panel" id="detailsPanel">
 
     <div class="details-header">
-
-      <div class="details-heading">
-        <span class="section-kicker">BUSINESS RESEARCH</span>
-        <h2 id="detailsBusinessName">Business Details</h2>
-        <p id="detailsBusinessType">Business information</p>
+      <div>
+        <span class="section-label">BUSINESS RESEARCH</span>
+        <h2 id="detailsBusinessName">Business Research</h2>
+        <span class="details-type" id="detailsBusinessType">Business</span>
       </div>
 
-      <button class="close-details" id="closeDetails" type="button" aria-label="Close details">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M6 6l12 12"></path>
-          <path d="M18 6 6 18"></path>
+      <button class="close-small" id="closeDetails" type="button" aria-label="Close business details">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
       </button>
-
     </div>
 
-    <div class="details-scroll">
+    <div class="details-body">
 
-      <div class="details-status-card">
-
+      <div class="details-status-card" id="detailsStatusCard">
         <div class="details-status-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-            <path d="M4 5h16v14H4z"></path>
-            <path d="M8 9h8"></path>
-            <path d="M8 13h5"></path>
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/>
+            <path d="m8.5 12 2.3 2.3 4.8-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-
-        <div class="details-status-content">
-          <span>WEBSITE STATUS</span>
-          <strong id="detailsWebsiteStatus">No website found</strong>
-          <p id="detailsConfidence">Research confidence unavailable</p>
+        <div>
+          <span>Website status</span>
+          <strong id="detailsWebsiteStatus">Not verified</strong>
         </div>
-
       </div>
 
       <section class="details-section">
-
         <div class="details-section-title">
           <span>BUSINESS OVERVIEW</span>
         </div>
 
         <div class="details-grid">
-
           <div class="detail-item">
             <span>Business name</span>
             <strong id="detailName">—</strong>
@@ -727,9 +874,34 @@
             <strong id="detailType">—</strong>
           </div>
 
-          <div class="detail-item detail-full">
-            <span>Address</span>
+          <div class="detail-item detail-item-wide">
+            <span>Full address</span>
             <strong id="detailAddress">—</strong>
+          </div>
+
+          <div class="detail-item">
+            <span>Country</span>
+            <strong id="detailCountry">—</strong>
+          </div>
+
+          <div class="detail-item">
+            <span>Region / State</span>
+            <strong id="detailRegion">—</strong>
+          </div>
+
+          <div class="detail-item">
+            <span>City</span>
+            <strong id="detailCity">—</strong>
+          </div>
+
+          <div class="detail-item">
+            <span>Area</span>
+            <strong id="detailArea">—</strong>
+          </div>
+
+          <div class="detail-item">
+            <span>Postal code</span>
+            <strong id="detailPostalCode">—</strong>
           </div>
 
           <div class="detail-item">
@@ -742,329 +914,424 @@
             <strong id="detailReviews">—</strong>
           </div>
 
-          <div class="detail-item detail-full">
-            <span>Opening hours</span>
-            <strong id="detailHours">—</strong>
+          <div class="detail-item">
+            <span>Business status</span>
+            <strong id="detailBusinessStatus">—</strong>
           </div>
 
+          <div class="detail-item">
+            <span>Price level</span>
+            <strong id="detailPriceLevel">—</strong>
+          </div>
         </div>
-
       </section>
 
       <section class="details-section">
-
         <div class="details-section-title">
-          <span>CONTACT INFORMATION</span>
+          <span>CONTACT</span>
         </div>
 
         <div class="contact-list">
 
           <div class="contact-row">
             <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <path d="M5 4h4l2 5-2.5 1.7a15 15 0 0 0 4.8 4.8L15 13l5 2v4a2 2 0 0 1-2 2C10.8 21 3 13.2 3 4a2 2 0 0 1 2-2"></path>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 4h3l1.5 4-2 1.5a15 15 0 0 0 5 5L16 13l4 1.5v3c0 1.1-.9 2-2 2C10.8 19.5 4.5 13.2 4.5 6A2 2 0 0 1 7 4Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
               </svg>
             </div>
             <div>
               <span>Phone</span>
-              <a href="#" id="detailPhone">Not found</a>
+              <strong id="detailPhone">Not found</strong>
             </div>
           </div>
 
           <div class="contact-row">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 8.8 8.8 0 0 1-4.2-1.1L3 20l1.1-4.5A8.4 8.4 0 1 1 21 11.5Z"></path>
-                <path d="M8.5 9.5c.5 2 2 3.5 4 4"></path>
+            <div class="contact-icon whatsapp-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M20 11.5a8 8 0 0 1-11.9 7l-3.6 1 1-3.5A8 8 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M9 8.5c.3-.5.7-.5 1-.1l.9 1.1c.2.3.2.6 0 .9l-.5.6c.6 1.1 1.5 2 2.6 2.6l.6-.5c.3-.2.6-.2.9 0l1.1.9c.4.3.4.7-.1 1-.6.4-1.4.5-2.1.2-2.8-1.1-4.9-3.2-6-6-.3-.7-.2-1.5.2-2.1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
               </svg>
             </div>
             <div>
               <span>WhatsApp</span>
-              <a href="#" id="detailWhatsapp">Not found</a>
+              <strong id="detailWhatsapp">Not found</strong>
             </div>
           </div>
 
           <div class="contact-row">
             <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                <path d="m4 7 8 6 8-6"></path>
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="6" width="16" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                <path d="m5 8 7 5 7-5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
               </svg>
             </div>
             <div>
-              <span>Email</span>
-              <a href="#" id="detailEmail">Not found</a>
+              <span>Public email</span>
+              <strong id="detailEmail">Not found</strong>
             </div>
           </div>
 
           <div class="contact-row">
             <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z"></path>
-                <circle cx="12" cy="10" r="2.2"></circle>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z" stroke="currentColor" stroke-width="1.7"/>
+                <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.7"/>
               </svg>
             </div>
             <div>
               <span>Google Maps</span>
-              <a href="#" id="detailMaps" target="_blank" rel="noopener noreferrer">Open location</a>
+              <a id="detailMaps" href="#" target="_blank" rel="noopener noreferrer">Open Maps</a>
             </div>
           </div>
 
         </div>
-
       </section>
 
       <section class="details-section">
+        <div class="details-section-title">
+          <span>WEBSITE</span>
+        </div>
 
+        <div class="website-research-card">
+          <div class="website-research-main">
+            <div class="website-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.4 5.1 3.4 8.5S14.2 18.2 12 20.5C9.8 18.2 8.6 15.4 8.6 12S9.8 5.8 12 3.5Z" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div>
+              <span>Website</span>
+              <strong id="detailWebsite">Not found</strong>
+              <small id="detailWebsiteMeta">No verified website available</small>
+            </div>
+          </div>
+
+          <a class="website-open-button" id="detailWebsiteLink" href="#" target="_blank" rel="noopener noreferrer">
+            Open
+          </a>
+        </div>
+
+        <div class="website-verification-grid">
+          <div>
+            <span>Reachable</span>
+            <strong id="detailWebsiteReachable">—</strong>
+          </div>
+          <div>
+            <span>Final URL</span>
+            <strong id="detailWebsiteFinalUrl">—</strong>
+          </div>
+          <div>
+            <span>Page title</span>
+            <strong id="detailWebsiteTitle">—</strong>
+          </div>
+          <div>
+            <span>Evidence</span>
+            <strong id="detailWebsiteEvidence">—</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="details-section">
+        <div class="details-section-title">
+          <span>OPENING HOURS</span>
+        </div>
+
+        <div class="hours-list" id="detailHours">
+          <div class="unavailable-state">Opening hours not available.</div>
+        </div>
+      </section>
+
+      <section class="details-section">
         <div class="details-section-title">
           <span>ONLINE PRESENCE</span>
         </div>
 
         <div class="social-grid">
 
-          <a href="#" class="social-card unavailable" id="socialInstagram" target="_blank" rel="noopener noreferrer">
-            <span class="social-symbol">IG</span>
-            <span>
-              <strong>Instagram</strong>
-              <small id="instagramStatus">Not found</small>
-            </span>
+          <a class="social-card" id="socialInstagram" href="#" target="_blank" rel="noopener noreferrer">
+            <div class="social-card-icon instagram">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.7"/>
+                <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.7"/>
+                <circle cx="17.2" cy="6.8" r=".8" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <span>Instagram</span>
+              <strong id="socialInstagramText">Not found</strong>
+            </div>
           </a>
 
-          <a href="#" class="social-card unavailable" id="socialFacebook" target="_blank" rel="noopener noreferrer">
-            <span class="social-symbol">f</span>
-            <span>
-              <strong>Facebook</strong>
-              <small id="facebookStatus">Not found</small>
-            </span>
+          <a class="social-card" id="socialFacebook" href="#" target="_blank" rel="noopener noreferrer">
+            <div class="social-card-icon facebook">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 20v-7h2.5l.5-3H14V8.3c0-.9.3-1.5 1.6-1.5H17V4.1c-.6-.1-1.3-.1-2-.1-2.1 0-3.5 1.3-3.5 3.7V10H9v3h2.5v7H14Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <span>Facebook</span>
+              <strong id="socialFacebookText">Not found</strong>
+            </div>
           </a>
 
-          <a href="#" class="social-card unavailable" id="socialTikTok" target="_blank" rel="noopener noreferrer">
-            <span class="social-symbol">TT</span>
-            <span>
-              <strong>TikTok</strong>
-              <small id="tiktokStatus">Not found</small>
-            </span>
+          <a class="social-card" id="socialTikTok" href="#" target="_blank" rel="noopener noreferrer">
+            <div class="social-card-icon tiktok">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M14 4v10.1a3.7 3.7 0 1 1-3-3.6M14 4c.5 2 1.8 3.5 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <span>TikTok</span>
+              <strong id="socialTikTokText">Not found</strong>
+            </div>
           </a>
 
-          <a href="#" class="social-card unavailable" id="socialLinkedin" target="_blank" rel="noopener noreferrer">
-            <span class="social-symbol">in</span>
-            <span>
-              <strong>LinkedIn</strong>
-              <small id="linkedinStatus">Not found</small>
-            </span>
+          <a class="social-card" id="socialLinkedIn" href="#" target="_blank" rel="noopener noreferrer">
+            <div class="social-card-icon linkedin">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M8 10v6M8 8v.01M11 16v-3.2a2.3 2.3 0 0 1 4.6 0V16M11 10v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <span>LinkedIn</span>
+              <strong id="socialLinkedInText">Not found</strong>
+            </div>
           </a>
 
-          <a href="#" class="social-card unavailable" id="socialX" target="_blank" rel="noopener noreferrer">
-            <span class="social-symbol">X</span>
-            <span>
-              <strong>X / Twitter</strong>
-              <small id="xStatus">Not found</small>
-            </span>
+          <a class="social-card" id="socialX" href="#" target="_blank" rel="noopener noreferrer">
+            <div class="social-card-icon x-social">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 5h3.5l4 5.1L16.8 5H19l-5.5 6.4L19.5 19H16l-4.2-5.4L7.2 19H5l5.7-6.7L5 5Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <span>X / Twitter</span>
+              <strong id="socialXText">Not found</strong>
+            </div>
           </a>
 
-          <a href="#" class="social-card unavailable" id="socialYoutube" target="_blank" rel="noopener noreferrer">
-            <span class="social-symbol">YT</span>
-            <span>
-              <strong>YouTube</strong>
-              <small id="youtubeStatus">Not found</small>
-            </span>
+          <a class="social-card" id="socialYouTube" href="#" target="_blank" rel="noopener noreferrer">
+            <div class="social-card-icon youtube">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="3.5" y="6" width="17" height="12" rx="3" stroke="currentColor" stroke-width="1.7"/>
+                <path d="m10 9 5 3-5 3V9Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <span>YouTube</span>
+              <strong id="socialYouTubeText">Not found</strong>
+            </div>
           </a>
 
         </div>
 
+        <div class="other-socials" id="otherSocials"></div>
       </section>
 
       <section class="details-section">
-
         <div class="details-section-title">
           <span>RESEARCH FINDINGS</span>
         </div>
 
-        <div class="research-finding">
-
-          <div class="finding-row">
-            <div class="finding-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <circle cx="12" cy="12" r="9"></circle>
-                <path d="M12 7v5l3 2"></path>
-              </svg>
-            </div>
-            <div>
-              <span>Research status</span>
-              <strong id="detailResearchStatus">Not researched</strong>
-            </div>
+        <div class="research-status-box">
+          <div class="research-status-row">
+            <span>Research status</span>
+            <strong id="detailResearchStatus">Not researched</strong>
           </div>
 
-          <div class="finding-description" id="detailResearchReason">
-            No research information is available yet.
+          <div class="research-reason" id="detailResearchReason">
+            Research information will appear here after the business has been processed.
           </div>
-
         </div>
 
+        <div class="intelligence-block">
+          <div class="intelligence-item">
+            <span>Business description</span>
+            <p id="detailDescription">No verified description available.</p>
+          </div>
+
+          <div class="intelligence-item">
+            <span>Services</span>
+            <p id="detailServices">No verified services found.</p>
+          </div>
+
+          <div class="intelligence-item">
+            <span>Public sources</span>
+            <div class="source-list" id="detailSources">
+              <span class="unavailable-state">No public sources recorded.</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="details-section">
-
         <div class="details-section-title">
-          <span>BUSINESS INTELLIGENCE</span>
+          <span>PUBLIC DIRECTORIES</span>
         </div>
 
-        <div class="intelligence-card">
-
-          <div class="intelligence-row">
-            <span>Services</span>
-            <p id="detailServices">Not available</p>
-          </div>
-
-          <div class="intelligence-row">
-            <span>Business description</span>
-            <p id="detailDescription">Not available</p>
-          </div>
-
-          <div class="intelligence-row">
-            <span>Public sources</span>
-            <p id="detailSources">Not available</p>
-          </div>
-
+        <div class="directory-list" id="detailDirectories">
+          <div class="unavailable-state">No additional public directories found.</div>
         </div>
-
       </section>
 
-      <section class="details-section website-opportunity">
+      <section class="details-section">
+        <div class="details-section-title">
+          <span>WEB ME INTELLIGENCE</span>
+        </div>
 
+        <div class="ai-insight-card">
+          <div class="ai-insight-header">
+            <div class="ai-mini-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+            </div>
+            <div>
+              <strong>Web Me</strong>
+              <span>Research assistant</span>
+            </div>
+          </div>
+
+          <p id="detailAiSummary">
+            Web Me will analyze the verified information available for this business.
+          </p>
+
+          <button class="ai-chat-trigger" id="businessAiButton" type="button">
+            <span>Ask Web Me about this business</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="details-section opportunity-section">
         <div class="details-section-title">
           <span>WEBSITE OPPORTUNITY</span>
         </div>
 
         <div class="opportunity-card">
-
-          <div class="opportunity-header">
-            <div class="opportunity-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <path d="M4 5h16v14H4z"></path>
-                <path d="M8 9h8"></path>
-                <path d="M8 13h5"></path>
-              </svg>
-            </div>
-
-            <div>
-              <strong>Prepare before contacting</strong>
-              <span>Turn your research into a website plan.</span>
-            </div>
+          <div class="opportunity-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M8 15h8M8 11h8M8 8h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
           </div>
 
-          <button class="primary-wide-button" id="websiteBriefButton" type="button">
-            <span>Generate Website Brief</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M5 12h14"></path>
-              <path d="m13 6 6 6-6 6"></path>
-            </svg>
-          </button>
+          <div class="opportunity-copy">
+            <h3>Turn research into a website brief</h3>
+            <p>Generate a structured brief from the verified business information available.</p>
+          </div>
 
+          <button class="primary-button" id="generateBriefButton" type="button">
+            Generate brief
+          </button>
         </div>
 
+        <div class="website-plan-output" id="websitePlanOutput"></div>
       </section>
 
     </div>
 
     <div class="details-footer">
-
-      <button class="secondary-wide-button" id="saveLeadButton" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M6 4.5A2.5 2.5 0 0 1 8.5 2h7A2.5 2.5 0 0 1 18 4.5V21l-6-3.5L6 21z"></path>
+      <button class="secondary-button" id="saveLeadButton" type="button">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 5.5A1.5 1.5 0 0 1 7.5 4h9A1.5 1.5 0 0 1 18 5.5V20l-6-3-6 3V5.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
         </svg>
         Save Lead
       </button>
 
-      <button class="primary-wide-button" id="openMapsButton" type="button">
-        <span>Open Business</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M5 12h14"></path>
-          <path d="m13 6 6 6-6 6"></path>
+      <a class="primary-button" id="openBusinessButton" href="#" target="_blank" rel="noopener noreferrer">
+        Open Business
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M14 5h5v5M19 5l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
         </svg>
-      </button>
-
+      </a>
     </div>
 
   </aside>
 
-  <div class="filter-panel" id="filterPanel">
+  <aside class="ai-chat-panel" id="aiChatPanel">
 
-    <div class="filter-panel-header">
-      <div>
-        <span class="section-kicker">FILTER RESULTS</span>
-        <h3>Lead filters</h3>
+    <div class="ai-chat-header">
+      <div class="ai-chat-brand">
+        <div class="ai-chat-logo">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Web Me</strong>
+          <span>AI Research Assistant</span>
+        </div>
       </div>
 
-      <button class="close-filter" id="closeFilter" type="button" aria-label="Close filters">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M6 6l12 12"></path>
-          <path d="M18 6 6 18"></path>
+      <button class="close-small" id="closeAiChat" type="button" aria-label="Close Web Me AI">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
       </button>
     </div>
 
-    <div class="filter-content">
-
-      <div class="filter-group">
-        <span class="filter-title">WEBSITE</span>
-
-        <label class="filter-checkbox">
-          <input type="checkbox" id="filterNoWebsite" value="no_website">
-          <span class="checkbox-box"></span>
-          <span>No website found</span>
-        </label>
-
-        <label class="filter-checkbox">
-          <input type="checkbox" id="filterWebsite" value="website">
-          <span class="checkbox-box"></span>
-          <span>Website found</span>
-        </label>
+    <div class="ai-context" id="aiContext">
+      <div class="ai-context-icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z" stroke="currentColor" stroke-width="1.7"/>
+          <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.7"/>
+        </svg>
       </div>
-
-      <div class="filter-group">
-        <span class="filter-title">ONLINE PRESENCE</span>
-
-        <label class="filter-checkbox">
-          <input type="checkbox" id="filterInstagram" value="instagram">
-          <span class="checkbox-box"></span>
-          <span>Has Instagram</span>
-        </label>
-
-        <label class="filter-checkbox">
-          <input type="checkbox" id="filterFacebook" value="facebook">
-          <span class="checkbox-box"></span>
-          <span>Has Facebook</span>
-        </label>
-
-        <label class="filter-checkbox">
-          <input type="checkbox" id="filterWhatsapp" value="whatsapp">
-          <span class="checkbox-box"></span>
-          <span>Has WhatsApp</span>
-        </label>
+      <div>
+        <span>Current context</span>
+        <strong id="aiContextName">General research</strong>
       </div>
+      <button id="clearAiContext" type="button">Clear</button>
+    </div>
 
-      <div class="filter-group">
-        <span class="filter-title">RATING</span>
+    <div class="ai-chat-messages" id="aiChatMessages">
 
-        <div class="range-row">
-          <input type="range" id="ratingFilter" min="0" max="5" step="0.1" value="0">
-          <strong id="ratingValue">0+</strong>
+      <div class="ai-message assistant-message">
+        <div class="message-avatar">
+          <span>W</span>
+        </div>
+        <div class="message-content">
+          <span class="message-name">Web Me</span>
+          <div class="message-bubble">
+            <p>Hi. I'm Web Me. Ask me about a business, its public online presence, its website opportunity, your search results, or anything related to your lead research.</p>
+          </div>
         </div>
       </div>
 
     </div>
 
-    <div class="filter-footer">
-      <button class="secondary-wide-button" id="clearFilters" type="button">Clear filters</button>
-      <button class="primary-wide-button" id="applyFilters" type="button">Apply filters</button>
+    <div class="ai-suggestions" id="aiSuggestions">
+      <button type="button" data-ai-prompt="What can you tell me about this business?">Business overview</button>
+      <button type="button" data-ai-prompt="What public online presence does this business have?">Online presence</button>
+      <button type="button" data-ai-prompt="Does this business appear to need a website? Explain using only the verified information.">Website opportunity</button>
+      <button type="button" data-ai-prompt="What should I research before contacting this business?">What to research</button>
     </div>
 
-  </div>
+    <form class="ai-chat-input-area" id="aiChatForm">
+      <div class="ai-input-wrap">
+        <textarea id="aiChatInput" rows="1" placeholder="Ask Web Me anything..."></textarea>
+        <button type="submit" id="aiSendButton" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M21 3 10 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="m21 3-4 18-7-7-7-3 18-8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <span class="ai-disclaimer">Web Me uses the available verified research context. Unverified information is not treated as fact.</span>
+    </form>
+
+  </aside>
 
   <div class="toast-container" id="toastContainer"></div>
 
   <script src="app.js"></script>
-
 </body>
 </html>
