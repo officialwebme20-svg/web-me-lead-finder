@@ -1,16 +1,25 @@
 {
-  "name": "web-me-lead-finder-backend",
+  "name": "web-me-lead-finder",
   "version": "1.0.0",
-  "description": "Backend API for Web Me Lead Finder",
+  "description": "Web Me Lead Finder - worldwide business discovery, research and lead generation platform",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
-  "engines": {
-    "node": ">=20"
-  },
+  "keywords": [
+    "lead-generation",
+    "business-research",
+    "google-places",
+    "web-research",
+    "ai",
+    "web-me"
+  ],
+  "author": "Web Me",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0"
   }
 }
