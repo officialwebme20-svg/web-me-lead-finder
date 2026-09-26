@@ -11,11 +11,23 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const PUBLIC_DIR = path.join(__dirname, "public");
+/*
+|--------------------------------------------------------------------------
+| IMPORTANT
+|--------------------------------------------------------------------------
+| server.js is inside /backend
+| public is one folder above /backend
+|--------------------------------------------------------------------------
+*/
 
-/* =========================
-   MIDDLEWARE
-========================= */
+const PUBLIC_DIR = path.join(__dirname, "..", "public");
+const INDEX_FILE = path.join(PUBLIC_DIR, "index.html");
+
+/*
+|--------------------------------------------------------------------------
+| MIDDLEWARE
+|--------------------------------------------------------------------------
+*/
 
 app.use(
     cors({
@@ -37,13 +49,21 @@ app.use(
     })
 );
 
+/*
+|--------------------------------------------------------------------------
+| FRONTEND STATIC FILES
+|--------------------------------------------------------------------------
+*/
+
 app.use(
     express.static(PUBLIC_DIR)
 );
 
-/* =========================
-   HEALTH CHECK
-========================= */
+/*
+|--------------------------------------------------------------------------
+| HEALTH CHECK
+|--------------------------------------------------------------------------
+*/
 
 app.get("/api/health", (req, res) => {
     res.json({
@@ -54,9 +74,11 @@ app.get("/api/health", (req, res) => {
     });
 });
 
-/* =========================
-   BUSINESS SEARCH
-========================= */
+/*
+|--------------------------------------------------------------------------
+| SEARCH BUSINESSES
+|--------------------------------------------------------------------------
+*/
 
 app.post("/api/leads/search", async (req, res) => {
     try {
@@ -87,12 +109,13 @@ app.post("/api/leads/search", async (req, res) => {
             .filter(Boolean)
             .join(", ");
 
-        const businesses = await findBusinesses({
-            country,
-            area,
-            businessType,
-            location
-        });
+        const businesses =
+            await findBusinesses({
+                country,
+                area,
+                businessType,
+                location
+            });
 
         res.json({
             success: true,
@@ -107,56 +130,69 @@ app.post("/api/leads/search", async (req, res) => {
 
         res.status(500).json({
             success: false,
-            error: "Unable to search for businesses."
+            error:
+                "Unable to search for businesses."
         });
     }
 });
 
-/* =========================
-   BUSINESS RESEARCH
-========================= */
+/*
+|--------------------------------------------------------------------------
+| RESEARCH BUSINESS
+|--------------------------------------------------------------------------
+*/
 
-app.post("/api/leads/research", async (req, res) => {
-    try {
-        const business = req.body.business;
+app.post(
+    "/api/leads/research",
+    async (req, res) => {
+        try {
+            const business =
+                req.body.business;
 
-        if (!business) {
-            return res.status(400).json({
+            if (!business) {
+                return res.status(400).json({
+                    success: false,
+                    error:
+                        "Business information is required."
+                });
+            }
+
+            const research =
+                await researchBusiness(
+                    business
+                );
+
+            res.json({
+                success: true,
+                research
+            });
+        } catch (error) {
+            console.error(
+                "Research error:",
+                error
+            );
+
+            res.status(500).json({
                 success: false,
-                error: "Business information is required."
+                error:
+                    "Unable to research this business."
             });
         }
-
-        const research = await researchBusiness(
-            business
-        );
-
-        res.json({
-            success: true,
-            research
-        });
-    } catch (error) {
-        console.error(
-            "Business research error:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            error: "Unable to research this business."
-        });
     }
-});
+);
 
-/* =========================
-   WEBSITE BRIEF
-========================= */
+/*
+|--------------------------------------------------------------------------
+| WEBSITE BRIEF
+|--------------------------------------------------------------------------
+*/
 
 app.post(
     "/api/leads/website-brief",
     async (req, res) => {
         try {
-            const business = req.body.business;
+            const business =
+                req.body.business;
 
             if (!business) {
                 return res.status(400).json({
@@ -190,50 +226,59 @@ app.post(
     }
 );
 
-/* =========================
-   WEB ME AI
-========================= */
+/*
+|--------------------------------------------------------------------------
+| ASK WEB ME AI
+|--------------------------------------------------------------------------
+*/
 
-app.post("/api/ai/ask", async (req, res) => {
-    try {
-        const {
-            message,
-            business
-        } = req.body;
+app.post(
+    "/api/ai/ask",
+    async (req, res) => {
+        try {
+            const {
+                message,
+                business
+            } = req.body;
 
-        if (!message) {
-            return res.status(400).json({
+            if (!message) {
+                return res.status(400).json({
+                    success: false,
+                    error:
+                        "Message is required."
+                });
+            }
+
+            const answer =
+                await askWebMe(
+                    message,
+                    business
+                );
+
+            res.json({
+                success: true,
+                answer
+            });
+        } catch (error) {
+            console.error(
+                "AI error:",
+                error
+            );
+
+            res.status(500).json({
                 success: false,
-                error: "Message is required."
+                error:
+                    "Unable to process AI request."
             });
         }
-
-        const answer = await askWebMe(
-            message,
-            business
-        );
-
-        res.json({
-            success: true,
-            answer
-        });
-    } catch (error) {
-        console.error(
-            "AI error:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            error:
-                "Unable to process your AI request."
-        });
     }
-});
+);
 
-/* =========================
-   EXPORT LEADS
-========================= */
+/*
+|--------------------------------------------------------------------------
+| EXPORT LEADS
+|--------------------------------------------------------------------------
+*/
 
 app.post(
     "/api/leads/export",
@@ -253,11 +298,15 @@ app.post(
             }
 
             const exportFormat =
-                String(format || "csv")
-                    .toLowerCase();
+                String(
+                    format || "csv"
+                ).toLowerCase();
 
-            if (exportFormat === "csv") {
-                const csv = createCSV(leads);
+            if (
+                exportFormat === "csv"
+            ) {
+                const csv =
+                    createCSV(leads);
 
                 res.setHeader(
                     "Content-Type",
@@ -292,9 +341,11 @@ app.post(
     }
 );
 
-/* =========================
-   GOOGLE PLACES SEARCH
-========================= */
+/*
+|--------------------------------------------------------------------------
+| BUSINESS SEARCH ENGINE
+|--------------------------------------------------------------------------
+*/
 
 async function findBusinesses({
     country,
@@ -305,11 +356,6 @@ async function findBusinesses({
     const apiKey =
         process.env.GOOGLE_PLACES_API_KEY;
 
-    /*
-     * API key is intentionally kept
-     * on the server.
-     */
-
     if (!apiKey) {
         console.warn(
             "GOOGLE_PLACES_API_KEY is not configured."
@@ -318,16 +364,8 @@ async function findBusinesses({
         return [];
     }
 
-    /*
-     * Google Places integration
-     * will be connected here.
-     *
-     * The frontend should never
-     * receive your private API key.
-     */
-
     console.log(
-        "Business search:",
+        "Business search request:",
         {
             country,
             area,
@@ -336,22 +374,28 @@ async function findBusinesses({
         }
     );
 
+    /*
+     * Google Places API connection
+     * will run here.
+     */
+
     return [];
 }
 
-/* =========================
-   BUSINESS RESEARCH
-========================= */
+/*
+|--------------------------------------------------------------------------
+| BUSINESS RESEARCH ENGINE
+|--------------------------------------------------------------------------
+*/
 
-async function researchBusiness(business) {
-    const website =
-        business.website || "";
-
-    const research = {
+async function researchBusiness(
+    business
+) {
+    return {
         status: "Research pending",
 
         reason:
-            "Public business research has been received and is ready for the research engine.",
+            "Business research request received.",
 
         description:
             business.description || "",
@@ -369,23 +413,19 @@ async function researchBusiness(business) {
         priceLevel:
             business.priceLevel || "",
 
-        opportunity:
-            "",
+        opportunity: "",
 
-        sources:
-            [],
-
-        website: website,
+        sources: [],
 
         researchCompleted: false
     };
-
-    return research;
 }
 
-/* =========================
-   WEBSITE INTELLIGENCE
-========================= */
+/*
+|--------------------------------------------------------------------------
+| WEBSITE INTELLIGENCE
+|--------------------------------------------------------------------------
+*/
 
 async function createWebsiteBrief(
     business
@@ -395,10 +435,11 @@ async function createWebsiteBrief(
             "Website Intelligence Brief",
             "",
             `Business: ${
-                business.name || "Unknown"
+                business.name ||
+                "Unknown"
             }`,
             "",
-            "No verified website was found for this business.",
+            "No verified website was found.",
             "",
             "Opportunity:",
             "This business may be a potential website lead."
@@ -409,28 +450,26 @@ async function createWebsiteBrief(
         "Website Intelligence Brief",
         "",
         `Business: ${
-            business.name || "Unknown"
+            business.name ||
+            "Unknown"
         }`,
-
         `Website: ${
             business.website
         }`,
-
         "",
-
         "Website status:",
         "Website information received.",
-
         "",
-
         "Research:",
-        "A full public-web website analysis will be generated when the website research engine is connected."
+        "Website analysis will be generated by the research engine."
     ].join("\n");
 }
 
-/* =========================
-   WEB ME AI
-========================= */
+/*
+|--------------------------------------------------------------------------
+| WEB ME AI
+|--------------------------------------------------------------------------
+*/
 
 async function askWebMe(
     message,
@@ -442,50 +481,34 @@ async function askWebMe(
     if (!groqKey) {
         return [
             "Web Me",
-
             "",
-
-            "The AI provider is not configured yet.",
-
+            "The AI provider has not been configured yet.",
             "",
-
-            "Add GROQ_API_KEY to your .env file to connect Web Me to the AI research engine."
+            "Add GROQ_API_KEY to your Render environment variables."
         ].join("\n");
     }
 
-    /*
-     * Groq AI integration will be
-     * connected here.
-     *
-     * The API key remains on
-     * the server.
-     */
-
     return [
         "Web Me received your request.",
-
         "",
-
         `Question: ${message}`,
-
         "",
-
         business
             ? `Business: ${
                   business.name ||
                   "Selected business"
               }`
             : "No business selected.",
-
         "",
-
-        "The live AI research provider is ready to be connected to this endpoint."
+        "The AI research connection is ready for implementation."
     ].join("\n");
 }
 
-/* =========================
-   CSV EXPORT
-========================= */
+/*
+|--------------------------------------------------------------------------
+| CSV GENERATOR
+|--------------------------------------------------------------------------
+*/
 
 function createCSV(leads) {
     const headers = [
@@ -508,48 +531,49 @@ function createCSV(leads) {
     ];
 
     const rows = leads.map(
-        business => {
-            return [
-                business.name,
-                business.type,
-                business.address,
-                business.phone,
-                business.email,
-                business.website,
-                business.rating,
-                business.reviews,
+        (business) => [
+            business.name,
+            business.type,
+            business.address,
+            business.phone,
+            business.email,
+            business.website,
+            business.rating,
+            business.reviews,
 
-                business.social?.instagram,
-                business.social?.facebook,
-                business.social?.tiktok,
-                business.social?.linkedin,
-                business.social?.x,
-                business.social?.youtube,
+            business.social?.instagram,
+            business.social?.facebook,
+            business.social?.tiktok,
+            business.social?.linkedin,
+            business.social?.x,
+            business.social?.youtube,
 
-                business.whatsapp,
+            business.whatsapp,
 
-                business.researchCompleted
-                    ? "Yes"
-                    : "No"
-            ];
-        }
+            business.researchCompleted
+                ? "Yes"
+                : "No"
+        ]
     );
 
     return [
         headers,
         ...rows
     ]
-        .map(row =>
-            row
-                .map(csvEscape)
-                .join(",")
+        .map(
+            (row) =>
+                row
+                    .map(csvEscape)
+                    .join(",")
         )
         .join("\n");
 }
 
-/* =========================
-   CSV ESCAPE
-========================= */
+/*
+|--------------------------------------------------------------------------
+| CSV ESCAPE
+|--------------------------------------------------------------------------
+*/
 
 function csvEscape(value) {
     if (
@@ -559,48 +583,56 @@ function csvEscape(value) {
         return '""';
     }
 
-    const text = String(value);
-
-    return `"${text.replace(
+    return `"${String(value).replace(
         /"/g,
         '""'
     )}"`;
 }
 
-/* =========================
-   FRONTEND FALLBACK
-========================= */
+/*
+|--------------------------------------------------------------------------
+| FRONTEND ROUTING
+|--------------------------------------------------------------------------
+*/
 
-app.use((req, res, next) => {
-    if (
-        req.method === "GET" &&
-        !req.path.startsWith("/api/")
-    ) {
-        return res.sendFile(
-            path.join(
-                PUBLIC_DIR,
-                "index.html"
+app.use(
+    (req, res, next) => {
+        if (
+            req.method === "GET" &&
+            !req.path.startsWith(
+                "/api/"
             )
-        );
+        ) {
+            return res.sendFile(
+                INDEX_FILE
+            );
+        }
+
+        next();
     }
+);
 
-    next();
-});
+/*
+|--------------------------------------------------------------------------
+| API 404
+|--------------------------------------------------------------------------
+*/
 
-/* =========================
-   API 404
-========================= */
+app.use(
+    (req, res) => {
+        res.status(404).json({
+            success: false,
+            error:
+                "API route not found."
+        });
+    }
+);
 
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        error: "API route not found."
-    });
-});
-
-/* =========================
-   ERROR HANDLER
-========================= */
+/*
+|--------------------------------------------------------------------------
+| ERROR HANDLER
+|--------------------------------------------------------------------------
+*/
 
 app.use(
     (
@@ -614,7 +646,9 @@ app.use(
             error
         );
 
-        if (res.headersSent) {
+        if (
+            res.headersSent
+        ) {
             return next(error);
         }
 
@@ -626,34 +660,34 @@ app.use(
     }
 );
 
-/* =========================
-   START SERVER
-========================= */
+/*
+|--------------------------------------------------------------------------
+| START SERVER
+|--------------------------------------------------------------------------
+*/
 
 app.listen(
     PORT,
+    "0.0.0.0",
     () => {
         console.log("");
         console.log(
             "======================================"
         );
         console.log(
-            "      WEB ME LEAD FINDER"
+            "       WEB ME LEAD FINDER"
         );
         console.log(
             "======================================"
         );
         console.log(
-            `Server: http://localhost:${PORT}`
+            `Server running on port ${PORT}`
         );
         console.log(
-            `Health: http://localhost:${PORT}/api/health`
+            `Public folder: ${PUBLIC_DIR}`
         );
         console.log(
-            "Frontend: public/index.html"
-        );
-        console.log(
-            "JavaScript: public/app.js"
+            `Frontend: ${INDEX_FILE}`
         );
         console.log(
             "======================================"
